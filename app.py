@@ -6,7 +6,7 @@ app=Flask(__name__)
 
 
 conn = psycopg2.connect(
-            host='localhost',
+            host='db',
             port='5432',
             dbname='stu_projects',
             user='postgres',
@@ -30,7 +30,7 @@ def form():
             name= request.form.get("sname")
             sphone_number= request.form.get("sphone_number")
             scity= request.form.get("scity")
-            #cur.execute("create table std_database(sid serial primary key,sname varchar(50),sphone_number varchar(12),scity varchar(50))")
+            cur.execute("create table std_database(sid serial primary key,sname varchar(50),sphone_number varchar(12),scity varchar(50))")
             cur.execute("INSERT INTO std_database (sname, sphone_number, scity) VALUES (%s, %s, %s)", (name,sphone_number, scity))
            
             conn.commit()

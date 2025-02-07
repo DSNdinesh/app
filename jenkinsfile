@@ -22,30 +22,6 @@ pipeline {
                 '''
             }
         }
-
-        stage('Login to Docker Hub') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'f59f83fe-687c-4cc4-a642-c35a6fc8442c', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                }
-            }
-        }
-
-        stage('Push Docker Image to Docker Hub') {
-            steps {
-                sh 'docker push ${DOCKER_IMAGE}'
-            }
-        }
-
-        stage('Deploy Latest Image with Docker Compose') {
-            steps {
-                sh '''
-                docker-compose down || true  # Stop existing services
-                docker-compose pull  # Pull the latest images from Docker Hub
-                docker-compose up -d  # Start with the latest image
-                '''
-            }
-        }
     }
 
     post {

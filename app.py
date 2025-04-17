@@ -6,7 +6,7 @@ app=Flask(__name__)
 
 
 conn = psycopg2.connect(
-            host='db',
+            host='database-1.cpa8i48eqilt.ap-south-1.rds.amazonaws.com',
             port='5432',
             dbname='stu_projects',
             user='postgres',
